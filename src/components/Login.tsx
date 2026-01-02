@@ -75,14 +75,23 @@ export function Login({ onLogin }: LoginProps) {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-      {/* Solid Background for Stability */}
+      {/* Animated Gradient Background */}
       <div className={`absolute inset-0 transition-all duration-1000 ${isGodAdminMode
-        ? 'bg-slate-900'
-        : 'bg-gray-50'
-        }`} />
+          ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900'
+          : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
+        }`}>
+        {/* Animated gradient orbs */}
+        <div className={`absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse ${isGodAdminMode ? 'bg-purple-600' : 'bg-blue-400'
+          }`} style={{ animationDuration: '4s' }} />
+        <div className={`absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse ${isGodAdminMode ? 'bg-indigo-600' : 'bg-pink-400'
+          }`} style={{ animationDuration: '6s', animationDelay: '1s' }} />
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse ${isGodAdminMode ? 'bg-purple-500' : 'bg-purple-400'
+          }`} style={{ animationDuration: '8s', animationDelay: '2s' }} />
+      </div>
 
-      {/* Simplified Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Geometric Patterns */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid pattern */}
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
