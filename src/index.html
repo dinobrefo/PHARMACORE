@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Multi-Tenant SaaS Pharmacy Inventory & Management Platform with offline POS capabilities">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Pharmacore">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <title>Pharmacore - Pharmacy Management Platform</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  
+  <!-- Register Service Worker (only in production with proper setup) -->
+  <script>
+    // Only register service worker if:
+    // 1. Service workers are supported
+    // 2. We're on HTTPS or localhost
+    // 3. The service worker file exists and is served with correct MIME type
+    if ('serviceWorker' in navigator && 
+        (location.protocol === 'https:' || location.hostname === 'localhost')) {
+      window.addEventListener('load', () => {
+        // Check if service-worker.js exists before registering
+        fetch('/service-worker.js', { method: 'HEAD' })
+          .then(response => {
+            if (response.ok && response.headers.get('content-type')?.includes('javascript')) {
+              return navigator.serviceWorker.register('/service-worker.js');
+            }
+            console.log('Service worker file not available or incorrect MIME type - skipping registration');
+          })
+          .then(registration => {
+            if (registration) {
+              console.log('SW registered:', registration);
+            }
+          })
+          .catch(error => {
+            console.log('SW registration skipped or failed:', error.message);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
